@@ -63,10 +63,15 @@ def main(args=None):
         set_digital_output(2, OFF)
         wait_digital_input(1)
         
+    def grip_without_wait():
+        release()
+        set_digital_output(1, ON)
+        set_digital_output(2, OFF)
+        
     print("hihi")
     
     pos = posx([400.53314208984375, 91.08312225341797, 120.66590881347656, 170.563720703125, -180.0, 169.79397583007812])
-    delta_1 = [0, 0, -50, 0, 0, 0]
+    delta_1 = [0, 0, -55, 0, 0, 0]
     # 초기 위치
     JReady = [0, 0, 90, 0, 90, 0]
     set_tool("Tool Weight_2FG")
@@ -101,13 +106,14 @@ def main(args=None):
     
     def release_flow(move_pos):
         delta_3 = [0, -150, 0, 0, 0, 0]
-        print()
+        print("hhhhhhhh")
+        print(type(move_pos))
         print(move_pos)
         print(delta_3)
-        print()
+        print("hhhhhhhh")
         move_pos = trans(move_pos, delta_3, DR_BASE, DR_BASE) 
         movel(move_pos, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-        move_pos = trans(move_pos, delta_1, DR_BASE, DR_BASE) 
+        move_pos = trans(posx(move_pos.tolist()), delta_1, DR_BASE, DR_BASE) 
         movel(move_pos, vel=VELOCITY, acc=ACC, ref=DR_BASE)
         
         task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
@@ -122,15 +128,17 @@ def main(args=None):
         release()
         release_compliance_ctrl()
         movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
+        grip_without_wait()
         
     while rclpy.ok():
         # 초기 위치로 이동
         # grip()
         movej(JReady, vel=VELOCITY, acc=ACC)
-        move_pos = grip_flow(pos)
-        print(move_pos)
-        move_pos = posx(move_pos)
-        release_flow(move_pos)
+        move_pos_1 = grip_flow(pos)
+        move_pos_1 = posx(move_pos_1.tolist())
+        print(type(move_pos_1))
+        print(move_pos_1)
+        release_flow(move_pos_1)
         
     rclpy.shutdown()
 
