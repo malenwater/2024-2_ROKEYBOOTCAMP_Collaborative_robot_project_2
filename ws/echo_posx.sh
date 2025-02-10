@@ -1,0 +1,1 @@
+ ros2 topic echo /dsr01/msg/current_posx
