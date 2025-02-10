@@ -66,7 +66,7 @@ def main(args=None):
     print("hihi")
     
     pos = posx([400.53314208984375, 91.08312225341797, 120.66590881347656, 170.563720703125, -180.0, 169.79397583007812])
-    delta_1 = [0, 0, -60, 0, 0, 0]
+    delta_1 = [0, 0, -50, 0, 0, 0]
     # 초기 위치
     JReady = [0, 0, 90, 0, 90, 0]
     set_tool("Tool Weight_2FG")
@@ -100,8 +100,12 @@ def main(args=None):
         return pos_1
     
     def release_flow(move_pos):
-        delta_2 = [0, -150, 0, 0, 0, 0]
-        move_pos = trans(move_pos, delta_2, DR_BASE, DR_BASE) 
+        delta_3 = [0, -150, 0, 0, 0, 0]
+        print()
+        print(move_pos)
+        print(delta_3)
+        print()
+        move_pos = trans(move_pos, delta_3, DR_BASE, DR_BASE) 
         movel(move_pos, vel=VELOCITY, acc=ACC, ref=DR_BASE)
         move_pos = trans(move_pos, delta_1, DR_BASE, DR_BASE) 
         movel(move_pos, vel=VELOCITY, acc=ACC, ref=DR_BASE)
@@ -113,8 +117,8 @@ def main(args=None):
         print("current position1 : ", get_current_posx())
         pos_1 = get_current_posx()
         pos_1 = pos_1[0]
-        delta_2 = [0, 0, 120 - pos_1[2], 0, 0, 0]
-        pos_1 = trans(pos_1, delta_2, DR_BASE, DR_BASE) 
+        delta_4 = [0, 0, 120 - pos_1[2], 0, 0, 0]
+        pos_1 = trans(pos_1, delta_4, DR_BASE, DR_BASE) 
         release()
         release_compliance_ctrl()
         movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
@@ -124,6 +128,8 @@ def main(args=None):
         # grip()
         movej(JReady, vel=VELOCITY, acc=ACC)
         move_pos = grip_flow(pos)
+        print(move_pos)
+        move_pos = posx(move_pos)
         release_flow(move_pos)
         
     rclpy.shutdown()
