@@ -17,5 +17,5 @@
   - empty
 
 ### Source
-
+ - src/dosan_pkg 내부에 제공해준 패키지를 넣어 사용한다.
 https://github.com/Juwan-s/doosan-robot2
