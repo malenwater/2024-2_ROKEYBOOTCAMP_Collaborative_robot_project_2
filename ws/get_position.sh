@@ -1,0 +1,1 @@
+ros2 service call /dsr01/aux_control/get_current_posx dsr_msgs2/srv/GetCurrentPosx "{ref: 0}"
