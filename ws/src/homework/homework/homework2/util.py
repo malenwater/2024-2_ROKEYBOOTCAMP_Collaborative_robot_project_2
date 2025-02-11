@@ -14,8 +14,10 @@ OFF, ON = 0, 1
 print("start util")
 try:
     from DSR_ROBOT2 import (
+        mwait,
         amove_periodic,
         trans,
+        wait,
         get_current_posx,
         release_force,
         release_compliance_ctrl,
@@ -23,6 +25,7 @@ try:
         task_compliance_ctrl,
         set_desired_force,
         set_tool,
+        check_position_condition,
         set_tcp,
         movej,
         move_periodic,
@@ -86,43 +89,39 @@ def release_flow(place,force_place):
     task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
     set_desired_force(fd=[0, 0, -10, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
 
-    while not check_force_condition(DR_AXIS_Z, max=8):
-        pass
-    
-    while True:
+    while check_position_condition(DR_AXIS_Z,max=45,ref=DR_BASE):
+        # print(f"get_current_posx()[0][2] {get_current_posx()[0][2]}")
+        print(f"check_position_condition(DR_AXIS_Z,max=45) {check_position_condition(DR_AXIS_Z,max=45)}")
+        while not check_force_condition(DR_AXIS_Z, max=8):
+            print("check_force_condition : ", check_force_condition(DR_AXIS_Z, max=8))
         release_force()
         release_compliance_ctrl()
-        move_periodic(amp=[0, 0, 0, 0, 0, 8], period=2.0, atime=0.02, repeat=1, ref=DR_TOOL)
-        print(f"move_periodic")
+        print("spin")    
+        move_periodic(amp=[0, 0, 0, 0, 0, 30], period=3.0, atime=0.02, repeat=2, ref=DR_TOOL)
+        print("move_periodic end")
+        
         task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
         set_desired_force(fd=[0, 0, -10, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
-        
-        pos = get_current_posx()[0]
-        if not check_force_condition(DR_AXIS_Z, max=8):
-            print(f"check_force_condition")
-            while True:
-                pos = get_current_posx()[0]
-                if pos[2] < 45:
-                    break
-                elif check_force_condition(DR_AXIS_Z, max=8):
-                    break
-            if pos[2] < 45: 
-                break
-        else:
-            print(f"False")
-            continue
 
+
+    print(f"check_position_condition(DR_AXIS_Z,max=45) {check_position_condition(DR_AXIS_Z,max=45)}")
+    # wait(3)
+
+    # print("current position1 : ", get_current_posx())
+
+    
     # 높이 체크
     # 높이가 40 이하 break
     # 높이 40이상 움직이게
-    print("current position2 : ", get_current_posx())
-    print("current position2 : ", get_current_posx())
-    print("current position2 : ", get_current_posx())
+    # print("current position2 : ", get_current_posx())
+    # print("current position2 : ", get_current_posx())
+    # print("current position2 : ", get_current_posx())
+    print("out")
     release_force()
     release_compliance_ctrl()
-    print("current position1 : ", get_current_posx())
-    
+    print("out")
     release()
+    print("out")
     
     movel(place, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     print(f"release_flow end")
