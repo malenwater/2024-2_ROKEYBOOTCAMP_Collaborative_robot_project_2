@@ -2,7 +2,7 @@
 
 import rclpy
 import DR_init
-
+import get_pos
 # for single robot
 ROBOT_ID = "dsr01"
 ROBOT_MODEL = "m0609"
@@ -47,22 +47,44 @@ def main(args=None):
         print(f"Error importing DSR_ROBOT2 : {e}")
         return
 
-    pos = posx([400.53314208984375, 91.08312225341797, 120.66590881347656, 170.563720703125, -180.0, 169.79397583007812])
     # 초기 위치
     JReady = [0, 0, 90, 0, 90, 0]
+    col_counts = [0, 0, 0]
     set_tool("Tool Weight_2FG")
     set_tcp("2FG_TCP")
-        
+    picks = get_pos.get_pos_block_pick()
+    places = get_pos.get_pos_block_place()
+    print(f"pick {picks}")
+    print(f"pick {len(picks)}")
+    print(f"place {places}")
+    print(f"place {len(places)}")
     while rclpy.ok():
         # 초기 위치로 이동
-        # grip()
-        movej(JReady, vel=VELOCITY, acc=ACC)
-        move_pos_1 = util.grip_flow(pos)
-        move_pos_1 = posx(move_pos_1.tolist())
-        print(type(move_pos_1))
-        print(move_pos_1)
-        util.release_flow(move_pos_1)
-        
+        for pick in picks:
+            print(f"pick {pick}")
+            print(f"pick {pick}")
+            print(f"pick {pick}")
+            pos = posx(pick)
+            util.grip_without_wait()
+            movej(JReady, vel=VELOCITY, acc=ACC)
+            block_z = util.grip_flow(pos)
+            
+            if block_z < 45:
+                size = 0
+                col_counts[0] += 1
+            elif block_z > 55 :
+                size = 2
+                col_counts[2] += 1
+            else: 
+                size = 1
+                col_counts[1] += 1
+            print(f"block_z {block_z}")
+            print(f"size {size}")
+            place = places[3 * size + col_counts[size] - 1]
+            print(f"place {place}")
+            place = posx(place)
+            util.release_flow(place)
+        break
     rclpy.shutdown()
     print("end")
 

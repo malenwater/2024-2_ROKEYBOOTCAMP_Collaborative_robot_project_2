@@ -62,6 +62,9 @@ def grip_without_wait():
 
 def grip_flow(move_pos):
     print("grip_flow")
+    print(f"grip_flow { move_pos}")
+    print(f"grip_flow { move_pos}")
+    print(f"grip_flow { move_pos}")
     delta_1 = [0, 0, -55, 0, 0, 0]
     movel(move_pos, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     move_pos = trans(move_pos, delta_1, DR_BASE, DR_BASE) 
@@ -74,6 +77,7 @@ def grip_flow(move_pos):
     print("current position1 : ", get_current_posx())
     pos_1 = get_current_posx()
     pos_1 = pos_1[0]
+    block_z = pos_1[2]
     pos_1[2] -= 20
     print("current position1 : ", pos_1)
     release()
@@ -87,23 +91,23 @@ def grip_flow(move_pos):
     grip()
     print("current grip : ", pos_1)
     movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-    return pos_1
+    return block_z
 
 def release_flow(move_pos):
-    delta_3 = [0, -150, 0, 0, 0, 0]
+    # delta_3 = [0, -150, 0, 0, 0, 0]
     delta_1 = [0, 0, -55, 0, 0, 0]
     print("release_flow")
     print(type(move_pos))
     print(move_pos)
-    print(delta_3)
-    move_pos = trans(move_pos, delta_3, DR_BASE, DR_BASE) 
+    # print(delta_3)
+    # move_pos = trans(move_pos, delta_3, DR_BASE, DR_BASE) 
     movel(move_pos, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-    move_pos = trans(posx(move_pos.tolist()), delta_1, DR_BASE, DR_BASE) 
+    move_pos = trans(move_pos, delta_1, DR_BASE, DR_BASE) 
     movel(move_pos, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     
-    task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
-    set_desired_force(fd=[0, 0, -10, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
-    while not check_force_condition(DR_AXIS_Z, max=8):
+    task_compliance_ctrl(stx=[3000, 3000, 3000, 200, 200, 200])
+    set_desired_force(fd=[0, 0, -15, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
+    while not check_force_condition(DR_AXIS_Z, max=13):
         pass
     print("current position1 : ", get_current_posx())
     pos_1 = get_current_posx()
