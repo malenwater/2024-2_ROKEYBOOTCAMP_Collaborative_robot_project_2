@@ -20,7 +20,7 @@ setup(
     tests_require=['pytest'],
     entry_points={
         'console_scripts': [
-            'move_array = homework.move:main',
+            'move_array = homework.homework1.move:main',
         ],
     },
 )
