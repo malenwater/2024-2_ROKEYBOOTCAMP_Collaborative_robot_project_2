@@ -19,7 +19,7 @@ def main(args=None):
 
     DR_init.__dsr__node = node
     # from ..homework4 import util_hw4
-    import util_hw4
+    import util_hw5
     try:
         from DSR_ROBOT2 import (
             trans,
@@ -50,14 +50,14 @@ def main(args=None):
     # 초기 위치
     JReady = posx([367.23846435546875, 3.2307586669921875, 220.86367797851562, 82.57035064697266, 179.97665405273438, 83.04486083984375])
     pick1 = posx([273.209, -178.614, 214.596, 141.998, 179.98, 140.073])
-    place1 = posx([505.650146484375, -1.451927900314331, 100.67518615722656,  141.998, 179.98, 140.073])
+    place1 = posx([505.650146484375, -1.451927900314331, 90.67518615722656,  141.998, 179.98, 140.073])
     count_cup = 0
     while rclpy.ok():
         # 초기 위치로 이동
         movel(JReady, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-        # util_hw4.grip_flow(pick1,count_cup )
+        util_hw5.put_6bottom(place1,pick1,count_cup )
         # util_hw4.release_flow(place1)
-        util_hw4.put_3cup(place1,pick1,count_cup)
+        # util_hw5.put_3cup(place1,pick1,count_cup)
         # util_hw4.put_6cup(place1,pick1,count_cup)
         break
     rclpy.shutdown()
