@@ -18,7 +18,8 @@ def main(args=None):
     node = rclpy.create_node("force_control", namespace=ROBOT_ID)
 
     DR_init.__dsr__node = node
-    from ..homework3 import util_hw3
+    # from ..homework4 import util_hw4
+    import util_hw4
     try:
         from DSR_ROBOT2 import (
             trans,
@@ -47,24 +48,17 @@ def main(args=None):
         return
 
     # 초기 위치
-    JReady = [0, 0, 90, 0, 90, 0]
-    pick1 = posx([419.975, 50.079, 69.93, 7.038173198699951, -179.99867248535156, 7.515153408050537])
-    pick2 = posx([419.975, 50.079, 69.93, 89.495, 149.968, 89.972])
-    place1 = posx([417.363, -214.612, 70.502, 89.495, 149.968, 89.972])
-    place2 = posx([417.363, -214.612, 70.502, 89.459, -119.76, 90.034])
-    place_final_1 = posx([316.939, -263.324, 70.989, 149.742, -179.994, 150.212])
-
-    count_genga = 0
+    JReady = posx([367.23846435546875, 3.2307586669921875, 220.86367797851562, 82.57035064697266, 179.97665405273438, 83.04486083984375])
+    pick1 = posx([273.209, -178.614, 214.596, 141.998, 179.98, 140.073])
+    place1 = posx([505.650146484375, -1.451927900314331, 100.67518615722656,  141.998, 179.98, 140.073])
     while rclpy.ok():
         # 초기 위치로 이동
-        movej(JReady, vel=VELOCITY, acc=ACC)
-        util_hw3.grip_flow(pick1,pick2)
-        util_hw3.release_flow(place1,place2)
-        place_final = util_hw3.chagne_trans_50(place_final_1)
-        count_genga += 1
-        util_hw3.place_other_place(place_final)
-        if count_genga == 4:
-            break
+        movel(JReady, vel=VELOCITY, acc=ACC, ref=DR_BASE)
+        # util_hw4.grip_flow(pick1,count_cup )
+        # util_hw4.release_flow(place1)
+        # util_hw4.put_3cup(place1,pick1)
+        util_hw4.put_6cup(place1,pick1)
+        break
     rclpy.shutdown()
     print("end")
 
