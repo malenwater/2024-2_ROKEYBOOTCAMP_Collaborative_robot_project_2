@@ -23,10 +23,12 @@
     - 가설 5. 힘 제어를 잠깐 키고 끄는 상황을 실험한다. -> 로봇이 꺼지는 현상 발생
     - 가설 6. 힘 제어가 어느부분에서 셧다운 되는 지를 print로 찍어 확인한다. -> 문제 발견 - 힘 제어를 끄는 부분에서 get_current_posx()라는 함수를 사용할 경우 죽는 상황 발생
     - 가설 7. get_current_posx()라는 현재 위치를 가져와서 일정 높이를 비교하는 구문을 삭제하고 check_position_contision()함수를 사용하여 일정 높이에 있는지 체크하여 동기식 회전 제어와 힘 제어를 사용  -> 기어 사이 기어 넣기를 성공
-
+  - <과제 3 - 누워있는 젠가 세우기>를 진행하던 도중, parallel_axis가 x,y,z축 정렬만 하고, 축으로 부터 몇도 떨어져서 정렬 되지 않는다는 것을 몰라 헤맴,x,y,z축의 회전 경우, 티칭으로 해결하는 것이 더 빠르다.
 ## 🎥 Demo Video
   - [과제 1(homework1) - 무작위 블럭 배열을 인위적인 배열로 정렬 <유튜브>](https://youtu.be/DOTn76icQKk)
   - [과제 2(homework2) - 기어 사이 기어 넣기 <유튜브>](https://youtu.be/e7ZbXmLXWEM)
+  - [과제 3(homework3) - 누워있는 젠가 세우기 <유튜브>](https://youtu.be/rBKUAeD9LpM)
+  - [과제 4(homework4) - 컵 3개 세우기 <유튜브>](https://youtu.be/3U2tS7aF_hc)
 
 ### Source
  - src/dosan_pkg 내부에 제공해준 패키지를 넣어 사용한다.
