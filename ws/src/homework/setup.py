@@ -22,6 +22,7 @@ setup(
         'console_scripts': [
             'move_array = homework.homework1.move:main',
             'gear = homework.homework2.gear:main',
+            'genga_stand = homework.homework3.genga_stand:main',
         ],
     },
 )

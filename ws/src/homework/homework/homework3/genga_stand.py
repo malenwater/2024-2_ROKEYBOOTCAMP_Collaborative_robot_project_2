@@ -18,7 +18,7 @@ def main(args=None):
     node = rclpy.create_node("force_control", namespace=ROBOT_ID)
 
     DR_init.__dsr__node = node
-    import util_hw3
+    from ..homework3 import util_hw3
     try:
         from DSR_ROBOT2 import (
             trans,
