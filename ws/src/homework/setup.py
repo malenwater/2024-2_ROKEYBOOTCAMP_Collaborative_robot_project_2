@@ -21,6 +21,7 @@ setup(
     entry_points={
         'console_scripts': [
             'move_array = homework.homework1.move:main',
+            'gear = homework.homework2.gear:main',
         ],
     },
 )
