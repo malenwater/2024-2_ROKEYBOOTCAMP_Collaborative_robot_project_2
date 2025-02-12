@@ -2,7 +2,6 @@
 
 import rclpy
 import DR_init
-from ..homework1 import get_pos
 # for single robot
 ROBOT_ID = "dsr01"
 ROBOT_MODEL = "m0609"
@@ -19,8 +18,7 @@ def main(args=None):
     node = rclpy.create_node("force_control", namespace=ROBOT_ID)
 
     DR_init.__dsr__node = node
-    from ..homework1 import util
-
+    from ..homework3 import util_hw3
     try:
         from DSR_ROBOT2 import (
             trans,
@@ -36,6 +34,7 @@ def main(args=None):
             DR_FC_MOD_REL,
             DR_AXIS_Z,
             DR_BASE,
+            DR_TOOL,
             set_digital_output,
             get_digital_input,
             wait,
@@ -49,42 +48,23 @@ def main(args=None):
 
     # 초기 위치
     JReady = [0, 0, 90, 0, 90, 0]
-    col_counts = [0, 0, 0]
-    set_tool("Tool Weight_2FG")
-    set_tcp("2FG_TCP")
-    picks = get_pos.get_pos_block_pick()
-    places = get_pos.get_pos_block_place()
-    print(f"pick {picks}")
-    print(f"pick {len(picks)}")
-    print(f"place {places}")
-    print(f"place {len(places)}")
+    pick1 = posx([419.975, 50.079, 69.93, 7.038173198699951, -179.99867248535156, 7.515153408050537])
+    pick2 = posx([419.975, 50.079, 69.93, 89.495, 149.968, 89.972])
+    place1 = posx([417.363, -214.612, 70.502, 89.495, 149.968, 89.972])
+    place2 = posx([417.363, -214.612, 70.502, 89.459, -119.76, 90.034])
+    place_final_1 = posx([316.939, -263.324, 70.989, 149.742, -179.994, 150.212])
+
+    count_genga = 0
     while rclpy.ok():
         # 초기 위치로 이동
-        for pick in picks:
-            print(f"pick {pick}")
-            print(f"pick {pick}")
-            print(f"pick {pick}")
-            pos = posx(pick)
-            util.grip_without_wait()
-            movej(JReady, vel=VELOCITY, acc=ACC)
-            block_z = util.grip_flow(pos)
-            
-            if block_z < 45:
-                size = 0
-                col_counts[0] += 1
-            elif block_z > 55 :
-                size = 2
-                col_counts[2] += 1
-            else: 
-                size = 1
-                col_counts[1] += 1
-            print(f"block_z {block_z}")
-            print(f"size {size}")
-            place = places[3 * size + col_counts[size] - 1]
-            print(f"place {place}")
-            place = posx(place)
-            util.release_flow(place)
-        break
+        movej(JReady, vel=VELOCITY, acc=ACC)
+        util_hw3.grip_flow(pick1,pick2)
+        util_hw3.release_flow(place1,place2)
+        place_final = util_hw3.chagne_trans_50(place_final_1)
+        count_genga += 1
+        util_hw3.place_other_place(place_final)
+        if count_genga == 4:
+            break
     rclpy.shutdown()
     print("end")
 
