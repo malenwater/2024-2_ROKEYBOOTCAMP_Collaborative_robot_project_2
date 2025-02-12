@@ -125,7 +125,7 @@ def release_flow(place1):
     movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     # print(f"release_flow end")
     
-def put_3cup(place,pick):
+def put_3cup(place,pick,count_cup):
     print(f"put_3cup start")
     print(f"put_3cup {place} {pick}")
     put_1_delta = [0, -40, 0, 0, 0, 0]
@@ -136,16 +136,16 @@ def put_3cup(place,pick):
     put2 = posx(list(trans(place, put_2_delta, DR_BASE, DR_BASE) ))
     put3 = posx(list(trans(place, put_3_delta, DR_BASE, DR_BASE) ))
     put_list = [put1, put2, put3]
-    count_cup = 0
+    count_cup_1 = count_cup
     for idx in put_list:
-        grip_flow(pick,count_cup)
+        grip_flow(pick,count_cup_1)
         release_flow(idx)
-        count_cup += 1
+        count_cup_1 += 1
         pass
     print(f"put_3cup end")
 
 
-def put_6cup(place,pick):
+def put_6cup(place,pick,count_cup):
     print(f"put_6cup start")
     print(f"put_6cup {place} {pick}")
     put_1_delta = [0, -80, 0, 0, 0, 0]
@@ -155,17 +155,17 @@ def put_6cup(place,pick):
     put1 = posx(list(trans(place, put_1_delta, DR_BASE, DR_BASE)))
     put2 = posx(list(trans(place, put_2_delta, DR_BASE, DR_BASE) ))
     put3 = posx(list(trans(place, put_3_delta, DR_BASE, DR_BASE) ))
-    put_list = [place,put1, put2]
-    count_cup = 0
+    put_list = [place, put1, put2]
+    count_cup_1 = count_cup
     
     for idx in put_list:
-        grip_flow(pick,count_cup)
+        grip_flow(pick,count_cup_1)
         release_flow(idx)
-        count_cup += 1
+        count_cup_1 += 1
         pass
     
     print(f"put_6cup start put_3cup")
-    put_3cup(put3,pick)
+    put_3cup(put3, pick, count_cup_1)
     print(f"put_6cup end")
     
 print("end util")
