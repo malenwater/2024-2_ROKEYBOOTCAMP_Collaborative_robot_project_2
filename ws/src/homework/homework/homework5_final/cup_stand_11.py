@@ -61,8 +61,10 @@ def main(args=None):
         # movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
         movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
         
-        util_hw5.put_6bottom(place1,pick1,count_cup )
-        util_hw5.put_reverse(place1,pick1,10)
+        count_cup = util_hw5.put_6bottom(place1,pick1,count_cup )
+        count_cup = util_hw5.put_3middle(place1, pick1, count_cup)
+        count_cup = util_hw5.put_top(place1, pick1, count_cup)
+        util_hw5.put_reverse(place1,pick1,count_cup+1)
         break
     rclpy.shutdown()
     print("end")

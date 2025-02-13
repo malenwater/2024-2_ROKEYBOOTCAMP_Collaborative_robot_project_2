@@ -10,7 +10,7 @@ VELOCITY, ACC = 350, 350
 
 DR_init.__dsr__id = ROBOT_ID
 DR_init.__dsr__model = ROBOT_MODEL
-CUP_HEIGHT = -11.5
+CUP_HEIGHT = -11.3
 ROOT_3 = math.sqrt(3)
 
 OFF, ON = 0, 1
@@ -76,10 +76,6 @@ def grip_flow(pick1,count):
     print(f"grip_flow start")
     print(f"grip_flow {pick1}")
     grip_without_wait()
-    # movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-    delta_2 = [0, 0, CUP_HEIGHT * count, 0, 0, 0]
-    pick1 = trans(pick1, delta_2, DR_BASE, DR_BASE) 
-    movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
 
     task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
     set_desired_force(fd=[0, 0, -10, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
@@ -111,9 +107,8 @@ def release_flow(place1,size,pick,count):
     delta_2 = [-30, 0, size - place1[2], 0, 0, 0]
     pos_1 = posx(list(trans(place1, delta_2, DR_BASE, DR_BASE))) 
     xlist = [pos_1, place1]
+    
     print(f"xlist {xlist}")
-    # movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-    # movel(place1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.8, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
     
     task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
@@ -124,16 +119,12 @@ def release_flow(place1,size,pick,count):
     release_compliance_ctrl()
     release()
     
-    # pos_1 = get_current_posx()
-    # pos_1 = pos_1[0]
     delta_3 = [0, 0, CUP_HEIGHT * count, 0, 0, 0]
     pick_2 = posx(list(trans(pick, delta_3, DR_BASE, DR_BASE))) 
-    # movel(pick, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     
     xlist = [pos_1,pick,pick_2]
-    # movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.8, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
-    # print(f"release_flow end")
+    print(f"release_flow end")
     
 def put_6bottom(place, pick, count_cup):
     print(f"put_6bottom start")
@@ -157,11 +148,11 @@ def put_6bottom(place, pick, count_cup):
     for idx in put_list:
         print(f"put_6bottom {idx}")
         grip_flow(pick,count_cup_1)
-        release_flow(idx,200,pick,count_cup_1)
         count_cup_1 += 1
+        release_flow(idx,200,pick,count_cup_1)
         pass
-    put_3middle(place, pick, count_cup_1)
     print(f"put_6bottom end")
+    return count_cup_1
 
 def put_3middle(place, pick, count_cup):
     print(f"put_3middle start")    
@@ -180,11 +171,11 @@ def put_3middle(place, pick, count_cup):
     count_cup_1 = count_cup
     for idx in put_list:
         grip_flow(pick,count_cup_1)
-        release_flow(idx,240.,pick,count_cup_1)
         count_cup_1 += 1
+        release_flow(idx,240.,pick,count_cup_1)
         pass
-    put_top(place, pick, count_cup_1)
     print(f"put_3middle end")
+    return count_cup_1
 
 def put_top(place, pick, count_cup):
     print(f"put_top start")
@@ -194,16 +185,19 @@ def put_top(place, pick, count_cup):
     count_cup_1 = count_cup
     grip_flow(pick,count_cup_1)
     release_flow(put1,330.,pick,count_cup_1)
+    count_cup_1 += 1
     print(f"put_top end")
+    return count_cup_1
     
 def grip_flow_reverse(pick1,count):
     print(f"grip_flow start")
     print(f"grip_flow {pick1}")
+    
     grip_without_wait()
+    print(f"grip_flow change")
+    # delta_2 = [0, 0, CUP_HEIGHT * count, 0, 0, 0]
+    # pick1 = trans(pick1, delta_2, DR_BASE, DR_BASE) 
     # movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-    delta_2 = [0, 0, CUP_HEIGHT * count, 0, 0, 0]
-    pick1 = trans(pick1, delta_2, DR_BASE, DR_BASE) 
-    movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
 
     task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
     set_desired_force(fd=[0, 0, -10, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
@@ -240,11 +234,8 @@ def release_flow_reverse(place1):
     pos_1 = posx(list(trans(place1, delta_2, DR_BASE, DR_BASE))) 
     xlist = [pos_1, place1]
     print(f"xlist {xlist}")
-    # movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-    # movel(place1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.8, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
     
-    # movel(place1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     parallel_axis([0,-1,0],DR_AXIS_Z,ref=DR_BASE)
     
     pos_2 = posx(list(get_current_posx()[0]))
@@ -259,7 +250,6 @@ def release_flow_reverse(place1):
     release_compliance_ctrl()
     release()
 
-    # movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
     print(f"release_flow_reverse end")
     
 def put_reverse(place,pick,count_cup):
@@ -271,4 +261,5 @@ def put_reverse(place,pick,count_cup):
     grip_flow_reverse(pick,count_cup_1)
     release_flow_reverse(put1)
     pass
+
 print("end util")
