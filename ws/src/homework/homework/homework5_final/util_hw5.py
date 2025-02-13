@@ -113,7 +113,7 @@ def release_flow(place1,size,pick,count):
     xlist = [pos_1, place1]
     
     print(f"xlist {xlist}")
-    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.65, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
+    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.8, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
     
     task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
     set_desired_force(fd=[0, 0, -10, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
@@ -127,7 +127,7 @@ def release_flow(place1,size,pick,count):
     pick_2 = posx(list(trans(pick, delta_3, DR_BASE, DR_BASE))) 
     
     xlist = [pos_1,pick,pick_2]
-    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.65, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
+    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.8, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
     print(f"release_flow end")
     
 def put_6bottom(place, pick, count_cup):
