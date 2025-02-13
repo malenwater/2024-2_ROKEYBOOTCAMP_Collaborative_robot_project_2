@@ -25,10 +25,11 @@
     - 가설 7. get_current_posx()라는 현재 위치를 가져와서 일정 높이를 비교하는 구문을 삭제하고 check_position_contision()함수를 사용하여 일정 높이에 있는지 체크하여 동기식 회전 제어와 힘 제어를 사용  -> 기어 사이 기어 넣기를 성공
   - <과제 3 - 누워있는 젠가 세우기>를 진행하던 도중, parallel_axis가 x,y,z축 정렬만 하고, 축으로 부터 몇도 떨어져서 정렬 되지 않는다는 것을 몰라 헤맴,x,y,z축의 회전 경우, 티칭으로 해결하는 것이 더 빠르다.
 ## 🎥 Demo Video
-  - [과제 1(homework1) - 무작위 블럭 배열을 인위적인 배열로 정렬 <유튜브>](https://youtu.be/DOTn76icQKk)
-  - [과제 2(homework2) - 기어 사이 기어 넣기 <유튜브>](https://youtu.be/e7ZbXmLXWEM)
-  - [과제 3(homework3) - 누워있는 젠가 세우기 <유튜브>](https://youtu.be/rBKUAeD9LpM)
-  - [과제 4(homework4) - 컵 3개 세우기 <유튜브>](https://youtu.be/3U2tS7aF_hc)
+  - [과제 1(homework1) - 무작위 블럭 배열을 인위적인 배열로 정렬 <유튜브>](https://youtu.be/ztsOVRzARyI)
+  - [과제 2(homework2) - 기어 사이 기어 넣기 <유튜브>](https://youtu.be/jz2EHEQGh78)
+  - [과제 3(homework3) - 누워있는 젠가 세우기 <유튜브>](https://youtu.be/uzCFj7mDgfo)
+  - [과제 4(homework4) - 컵 3개 세우기 <유튜브>](https://youtu.be/pcc3xkfMvAg)
+  - [과제 5(제출 과제) - 컵 10개 쌓고, 마지막에 뒤집어서 쌓기 <유튜브>](https://youtu.be/sTRamCVo4vg)
 
 ### Source
  - src/dosan_pkg 내부에 제공해준 패키지를 넣어 사용한다.
