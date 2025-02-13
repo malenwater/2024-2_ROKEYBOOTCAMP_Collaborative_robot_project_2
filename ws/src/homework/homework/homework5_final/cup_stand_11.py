@@ -64,7 +64,8 @@ def main(args=None):
         count_cup = util_hw5.put_6bottom(place1,pick1,count_cup )
         count_cup = util_hw5.put_3middle(place1, pick1, count_cup)
         count_cup = util_hw5.put_top(place1, pick1, count_cup)
-        util_hw5.put_reverse(place1,pick1,count_cup+1)
+        print(f"end {count_cup}")
+        util_hw5.put_reverse(place1,pick1,count_cup)
         break
     rclpy.shutdown()
     print("end")

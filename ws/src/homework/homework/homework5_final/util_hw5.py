@@ -96,8 +96,12 @@ def grip_flow(pick1,count):
     grip()
     
     delta_2 = [0, 0, 105, 0, 0, 0]
-    pos_1 = trans(pos_1, delta_2, DR_BASE, DR_BASE) 
-    movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
+    delta_3 = [0, 0, 110, 0, 0, 0]
+    pos_2 = posx(list(trans(pos_1, delta_2, DR_BASE, DR_BASE) )) 
+    pos_3 = posx(list(trans(pos_1, delta_3, DR_BASE, DR_BASE) )) 
+    xlist = [pos_2,pos_3]
+    # movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
+    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.25, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
     
     print(f"grip_flow end")
 
@@ -109,7 +113,7 @@ def release_flow(place1,size,pick,count):
     xlist = [pos_1, place1]
     
     print(f"xlist {xlist}")
-    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.8, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
+    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.65, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
     
     task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
     set_desired_force(fd=[0, 0, -10, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
@@ -123,7 +127,7 @@ def release_flow(place1,size,pick,count):
     pick_2 = posx(list(trans(pick, delta_3, DR_BASE, DR_BASE))) 
     
     xlist = [pos_1,pick,pick_2]
-    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.8, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
+    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.65, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
     print(f"release_flow end")
     
 def put_6bottom(place, pick, count_cup):
@@ -195,9 +199,9 @@ def grip_flow_reverse(pick1,count):
     
     grip_without_wait()
     print(f"grip_flow change")
-    # delta_2 = [0, 0, CUP_HEIGHT * count, 0, 0, 0]
-    # pick1 = trans(pick1, delta_2, DR_BASE, DR_BASE) 
-    # movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
+    delta_2 = [0, 0, CUP_HEIGHT * count, 0, 0, 0]
+    pick1 = trans(pick1, delta_2, DR_BASE, DR_BASE) 
+    movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
 
     task_compliance_ctrl(stx=[500, 500, 500, 100, 100, 100])
     set_desired_force(fd=[0, 0, -10, 0, 0, 0], dir=[0, 0, 1, 0, 0, 0], mod=DR_FC_MOD_REL)
@@ -210,6 +214,7 @@ def grip_flow_reverse(pick1,count):
     pos_1[1] += 20
     print("current position1 : ", pos_1)
     release()
+    wait(0.25)
     print("current release : ", pos_1)
     release_compliance_ctrl()
     
