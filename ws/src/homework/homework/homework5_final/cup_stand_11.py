@@ -5,7 +5,7 @@ import DR_init
 # for single robot
 ROBOT_ID = "dsr01"
 ROBOT_MODEL = "m0609"
-VELOCITY, ACC = 230, 230
+VELOCITY, ACC = 350, 350
 
 DR_init.__dsr__id = ROBOT_ID
 DR_init.__dsr__model = ROBOT_MODEL
@@ -50,12 +50,17 @@ def main(args=None):
     set_tcp("GripperDA_v1")
     # 초기 위치
     JReady = posx([367.23846435546875, 3.2307586669921875, 220.86367797851562, 82.57035064697266, 179.97665405273438, 83.04486083984375])
-    pick1 = posx([273.209, -178.614, 205.596, 141.998, 179.98, 140.073])
-    place1 = posx([505.650146484375, -1.451927900314331, 85.67518615722656,  141.998, 179.98, 140.073])
+    # pick1 = posx([273.209, -178.614, 205.596, 141.998, 179.98, 140.073])
+    pick1 = posx([266.2298889160156, 24.937015533447266, 205.596, 141.998, 179.98, 140.073])
+    # place1 = posx([505.650146484375, -1.451927900314331, 85.67518615722656,  141.998, 179.98, 140.073])
+    place1 = posx([525.650146484375, -1.451927900314331, 84.67518615722656,  141.998, 179.98, 140.073])
     count_cup = 0
     while rclpy.ok():
         # 초기 위치로 이동
         movel(JReady, vel=VELOCITY, acc=ACC, ref=DR_BASE)
+        # movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
+        movel(pick1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
+        
         util_hw5.put_6bottom(place1,pick1,count_cup )
         util_hw5.put_reverse(place1,pick1,10)
         break
