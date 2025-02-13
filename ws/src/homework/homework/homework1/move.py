@@ -50,8 +50,8 @@ def main(args=None):
     # 초기 위치
     JReady = [0, 0, 90, 0, 90, 0]
     col_counts = [0, 0, 0]
-    set_tool("Tool Weight_2FG")
-    set_tcp("2FG_TCP")
+    set_tool("Tool Weight")
+    set_tcp("GripperDA_v1")
     picks = get_pos.get_pos_block_pick()
     places = get_pos.get_pos_block_place()
     print(f"pick {picks}")

@@ -45,7 +45,8 @@ def main(args=None):
     except ImportError as e:
         print(f"Error importing DSR_ROBOT2 : {e}")
         return
-
+    set_tool("Tool Weight")
+    set_tcp("GripperDA_v1")
     # 초기 위치
     JReady = [0, 0, 90, 0, 90, 0]
     pick = posx([423.215, -154.955, 138.865, 160.242, 179.93, 167.995])
