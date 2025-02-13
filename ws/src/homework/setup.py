@@ -23,6 +23,8 @@ setup(
             'move_array = homework.homework1.move:main',
             'gear = homework.homework2.gear:main',
             'genga_stand = homework.homework3.genga_stand:main',
+            'cup_stand3 = homework.homework4.cup_stand:main',
+            'cup_stand11 = homework.homework5_final.cup_stand_11:main',
         ],
     },
 )
