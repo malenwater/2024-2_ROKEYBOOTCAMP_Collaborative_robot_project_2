@@ -34,3 +34,10 @@
 ### Source
  - src/dosan_pkg 내부에 제공해준 패키지를 넣어 사용한다.
 https://github.com/Juwan-s/doosan-robot2
+
+## 프로젝트 문제점과 해결할 방안
+|이름|문제점|개선할 방안|역할|
+|---|---|---|---|
+|[이선우](https://github.com/malenwater)|더미|더미|알고리즘 코드 작성, 테스팅|
+|[류승기](https://github.com/RyuSeunggi)|더미|더미|알고리즘 설계, 테스팅|
+|[최민호](https://github.com/ccccmh)|더미|더미|알고리즘 설계, 테스팅|
