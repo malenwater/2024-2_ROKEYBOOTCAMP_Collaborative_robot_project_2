@@ -101,7 +101,7 @@ def grip_flow(pick1,count):
     pos_3 = posx(list(trans(pos_1, delta_3, DR_BASE, DR_BASE) )) 
     xlist = [pos_2,pos_3]
     # movel(pos_1, vel=VELOCITY, acc=ACC, ref=DR_BASE)
-    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.25, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
+    movesx(xlist, vel=[VELOCITY, VELOCITY],time=0.5, acc=[ACC, ACC], vel_opt=DR_MVS_VEL_NONE)
     
     print(f"grip_flow end")
 
