@@ -1,11 +1,11 @@
 # 2024-2_ROKEYBOOTCAMP_Collaborative_robot_project_2
-두산 로보틱스의 협동로봇인 M0609를 활용하여 다양한 상황에서 과제를 해결하는 프로젝트를 진행하였다.
+두산 로보틱스의 협동로봇인 M0609를 활용하여 다양한 상황의 과제를 해결하는 프로젝트를 진행하였다.
 
 ## ✨ Key Features
 
 **Optimization(최적화)**
 
-- 관절 각도로 인한 특이점 위치를 분석하고 이를 회피하기 위한 전략을 고안하면서 경로를 추정하는 알고리즘을 구현할 것이다.
+- 관절 각도로 인한 특이점 위치를 분석하고, 이를 회피하기 위한 전략을 고안하면서 경로를 추정하는 알고리즘을 구현할 것이다.
 
 **Advanced Path Planning Algorithms(고급 경로 계획 알고리즘)**
 
@@ -29,7 +29,7 @@
   - [과제 2(homework2) - 기어 사이 기어 넣기 <유튜브>](https://youtu.be/jz2EHEQGh78)
   - [과제 3(homework3) - 누워있는 젠가 세우기 <유튜브>](https://youtu.be/uzCFj7mDgfo)
   - [과제 4(homework4) - 컵 3개 세우기 <유튜브>](https://youtu.be/pcc3xkfMvAg)
-  - [과제 5(제출 과제) - 컵 10개 쌓고, 마지막에 뒤집어서 쌓기 <유튜브>](https://youtu.be/sTRamCVo4vg)
+  - [과제 5(제출 과제) - 컵 10개 쌓고, 마지막에 뒤집어서 쌓기 <유튜브>](https://youtu.be/tilhtvge_kU)
 
 ### Source
  - src/dosan_pkg 내부에 제공해준 패키지를 넣어 사용한다.
